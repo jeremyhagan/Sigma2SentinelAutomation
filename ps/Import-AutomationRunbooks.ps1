@@ -28,6 +28,7 @@ param (
     $Path
 )
 #requires -modules Az.Accounts,Az.Automation
+Write-Output "Running in $PSScriptRoot"
 $runbooks = Get-ChildItem -Path $Path -Filter *.ps1 -Recurse
 If ($null -eq $runbooks) {
     Write-Warning "No scripts found under $Path"
