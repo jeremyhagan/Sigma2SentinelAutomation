@@ -6,9 +6,40 @@ on:
     - "main"
 
 env:
-  AZURE_RESOURCEGROUP_NAME: 'rd-airs-prd-aue-001'
+  
+  AZURE_RESOURCEGROUP_NAME: 'sentinel'
   AZURE_STORAGE_NAME: 'jeremyhagantest'
 
 jobs:
     build-and-deploy:
       runs-on: windows-latest
+      steps:
+        # Checkout code
+      - name : Checkout code
+        uses: actions/checkout@v3
+
+        # Login to Azure
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.JEREMY_PROD }}
+          enable-AzPSSession: true
+        
+        # Deploy arm template
+      - name: Deploy ARM template
+        uses: azure/ARM@v1
+        with:
+          scope: resourceGroup
+          azureResourceManagerConnection: ${{ secrets.JEREMY_PROD }}
+          subscriptionId: ${{ secrets.JEREMY_PROD_SUBSCRIPTION }}
+          resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
+          location: 'Australia East'
+          templateLocation: 'Linked artifact'
+          csmFile: 'Sigma2SentinelAutomation/templates/storageAccount.json'
+          deploymentMode: 'Incremental'
+          overrideParameters: storageAccountName=${{ env.AZURE_STORAGE_NAME }}
+      
+          # output containerName variable from template
+      - run: echo ${{ steps.deploy.outputs }}
+
+
