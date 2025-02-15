@@ -33,7 +33,7 @@ jobs:
           scope: resourcegroup
           subscriptionId: ${{ secrets.JEREMY_PROD_SUBSCRIPTION }}
           resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
-          template: './templates/storageAccount.json'
+          template: './templates/automationAccount.json'
           parameters: storageAccountName=${{ env.AZURE_STORAGE_NAME }}
       
           # output containerName variable from template
