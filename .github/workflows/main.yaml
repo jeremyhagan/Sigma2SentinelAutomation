@@ -44,7 +44,7 @@ jobs:
         uses: azure/powershell@v2
         with:
           inlineScript: ./ps/Import-AutomationRunbooks.ps1 -resourceGroupName ${{ env.AZURE_RESOURCEGROUP_NAME }} 
-            -automationAccountName ${{ env.AUTOMATION_ACCOUNT_NAME }} -Path ./runbooks
+            -automationAccountName ${{ env.AUTOMATION_ACCOUNT_NAME }} -Path ../Runbooks
           azPSVersion: "latest"
 
 
