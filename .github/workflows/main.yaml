@@ -1,9 +1,9 @@
 name: Deploy Automation Account and Sigma2SentinelAutomation runbook
 
 on:
-  push:
-    branches:
-    - "main"
+  #push:
+  #  branches:
+  #  - "main"
   workflow_dispatch:
 
 env:
