@@ -56,7 +56,7 @@
                     "apiVersion": "2023-11-01",
                     "name": "Every Day Midnight",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Automation/automationAccounts', variables('automationAccountName'))]"
+                        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
                     ],
                     "properties": {
                         "startTime": "[variables('midnightStartTime')]",
@@ -71,7 +71,7 @@
                     "apiVersion": "2023-11-01",
                     "name": "Every Day 5AM",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Automation/automationAccounts', variables('automationAccountName'))]"
+                        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
                     ],
                     "properties": {
                         "startTime": "[variables('5AmStartTime')]",
@@ -87,7 +87,7 @@
                     "name": "ManageSigmaImports",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Automation/automationAccounts', variables('automationAccountName'))]"
+                        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
                     ],
                     "properties": {
                         "description": "Imports and updates sigma rules as Sentinel analytic rule templates.",
