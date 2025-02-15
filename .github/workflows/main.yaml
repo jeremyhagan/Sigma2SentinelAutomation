@@ -1,15 +1,15 @@
 name: Deploy Automation Account and Sigma2SentinelAutomation runbook
 
 on:
-  #push:
-  #  branches:
-  #  - "main"
+  push:
+    branches:
+    - "main"
   workflow_dispatch:
 
 env:
   
   AZURE_RESOURCEGROUP_NAME: 'sentinel'
-  AZURE_STORAGE_NAME: 'jeremyhagantest'
+  AUTOMATION_ACCOUNT_NAME: 'SentinelAutomationTest'
 
 jobs:
     build-and-deploy:
@@ -38,5 +38,13 @@ jobs:
       
           # output containerName variable from template
       - run: echo ${{ steps.deploy.outputs }}
+
+        # Import runnbooks
+      - name: Import runbooks
+        uses: azure/powershell@v2
+        with:
+          inlineScript: ./ps/Import-AutomationRunbooks.ps1 -resourceGroupName ${{ env.AZURE_RESOURCEGROUP_NAME }} 
+            -subscriptionId ${{ secrets.JEREMY_PROD_SUBSCRIPTION }} -automationAccountName ${{ env.AUTOMATION_ACCOUNT_NAME }}
+          azPSVersion: "latest"
 
 
