@@ -28,7 +28,7 @@ jobs:
         
         # Deploy arm template
       - name: Deploy ARM template
-        uses: azure/ARM@v1
+        uses: azure/arm-deploy@v1
         with:
           scope: resourceGroup
           azureResourceManagerConnection: ${{ secrets.JEREMY_PROD }}
