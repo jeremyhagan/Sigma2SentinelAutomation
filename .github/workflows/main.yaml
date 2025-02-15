@@ -21,7 +21,7 @@ jobs:
 
         # Login to Azure
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: ${{ secrets.JEREMY_PROD }}
           enable-AzPSSession: true
@@ -30,15 +30,11 @@ jobs:
       - name: Deploy ARM template
         uses: azure/arm-deploy@v1
         with:
-          scope: resourceGroup
-          azureResourceManagerConnection: ${{ secrets.JEREMY_PROD }}
+          scope: resourcegroup
           subscriptionId: ${{ secrets.JEREMY_PROD_SUBSCRIPTION }}
           resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
-          location: 'Australia East'
-          templateLocation: 'Linked artifact'
-          csmFile: 'Sigma2SentinelAutomation/templates/storageAccount.json'
-          deploymentMode: 'Incremental'
-          overrideParameters: storageAccountName=${{ env.AZURE_STORAGE_NAME }}
+          template: './templates/storageAccount.json'
+          parameters: storageAccountName=${{ env.AZURE_STORAGE_NAME }}
       
           # output containerName variable from template
       - run: echo ${{ steps.deploy.outputs }}
